@@ -28,7 +28,6 @@ typedef struct s_chunk
     int high;
     int low;
     int size;
-    int num_chunks;
     int range;
 }               t_chunk;
 

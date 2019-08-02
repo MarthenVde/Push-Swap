@@ -79,33 +79,64 @@ static	int	range_upper(t_stack *head, int chunk_size)
 	return (upper);
 }
 
-static	int	det_flow(t_stack **head, int range)
+static	int	det_flow(t_stack **head, int range, int len)
 {
-	int flow;
-	int fow_c;
-	int rev_c;
-	t_stack *tmp;
-	t_stack **rev;
+	int index;
+	int high;
+	int low;
+	t_stack *cur;
 
-	tmp = *head;
-	rev = head;
-	fow_c = 0;
-	rev_c = 0;
-	while (tmp && tmp->data > range)
+	cur = *head;
+	low = -1;
+	high = -1;
+	index = 0;
+	while (cur)
 	{
-		tmp = tmp->next;
-		fow_c++;
+		if (low == -1 &&  cur->data <= range)
+			low = index;
+		if (high <=  range)
+			high = index;
+		index++;
+		cur = cur->next;
 	}
-	ft_stack_reverse(rev);
-	while (*rev && (*rev)->data > range)
+	//printf("len = %i |-| low = %i |-| high = %i |-| (len -  high) = %i  |-| range = %i\n",len, low, high, (len - high), range);
+	if (high != -1 && (len -  high) < low)
 	{
-		(*rev) = (*rev)->next;
-		fow_c++;
+		//ft_putendl("flow reverse");
+		return (0);
 	}
-	flow = (fow_c <= rev_c) ? 1 : 0;
-	return (flow);
+	return (1);
 }
 
+static	int	det_flow_highest(t_stack **head, int n)
+{
+	int start;
+	int end;
+	t_stack *cur;
+
+	cur = *head;
+	start = 0;
+	end = 0;
+	while (cur)
+	{
+		if (cur->data == n)
+		{
+			while (cur)
+			{
+				cur = cur->next;
+				end++;
+			}
+		}
+		else
+		{
+			cur = cur->next;
+			start++;
+		}
+	}
+	if (start < end)
+		return (1);
+	return (0);
+}
 
 void	ft_chunking_sort(t_stack **a, t_stack **b, int s_size)
 {
@@ -114,21 +145,20 @@ void	ft_chunking_sort(t_stack **a, t_stack **b, int s_size)
 	int flow;
 
 	flow = 0;
-	chunk.num_chunks = (s_size >= 500) ? 11 : 5;
-	chunk.size = (s_size / chunk.num_chunks) + 1;
+	chunk.size = (s_size >= 500) ? 32 : 20;
 	while (*a != NULL)
 	{
 		chunk.range = range_upper(*a, chunk.size);
 		while (!range_empty(*a, chunk.range))
 		{
-			flow = det_flow(a, chunk.range);
+			
 			if ((*a)->data <= chunk.range)
 				exec_cmd("pb", a, b, 1);
+			flow = det_flow(a, chunk.range,  ft_stack_size(a));
 			if (flow)
 				exec_cmd("ra", a, b, 1);
 			else
 				exec_cmd("rra", a, b, 1);
-			
 		}
 	}
 	while (*b != NULL)
@@ -136,7 +166,10 @@ void	ft_chunking_sort(t_stack **a, t_stack **b, int s_size)
 		int highest = find_highest(*b);
 		while ((*b)->data != highest)
 		{
-			exec_cmd("rb", a, b, 1);
+			if (det_flow_highest(b, highest))
+				exec_cmd("rb", a, b, 1);
+			else
+				exec_cmd("rrb", a, b, 1);
 		}
 		exec_cmd("pa", a, b, 1);
 	}
