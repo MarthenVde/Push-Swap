@@ -12,7 +12,7 @@
 
 #include <push_swap.h>
 
-int	ft_stack_sorted(t_stack **stk_a, t_stack **stk_b)
+int		ft_stack_sorted(t_stack **stk_a, t_stack **stk_b)
 {
 	t_stack *tmp;
 
@@ -21,7 +21,7 @@ int	ft_stack_sorted(t_stack **stk_a, t_stack **stk_b)
 	{
 		while (tmp->next)
 		{
-			if(tmp->data >= tmp->next->data)
+			if (tmp->data >= tmp->next->data)
 				return (0);
 			tmp = tmp->next;
 		}
@@ -30,64 +30,33 @@ int	ft_stack_sorted(t_stack **stk_a, t_stack **stk_b)
 	return (0);
 }
 
-void    ft_stack_print(t_stack **head)
+int		ft_stack_size(t_stack **head)
 {
-    t_stack *curr;
+	t_stack	*curr;
+	int		size;
 
-    curr = *head;
-    while (curr)
-    {
-        ft_putnbr(curr->data);
-        ft_putchar('\n');
-        curr = curr->next;
-    }
-}
-
-int     ft_stack_size(t_stack **head)
-{
-    t_stack *curr;
-    int size;
-
-    curr = *head;
-    size = 0;
-    while (curr)
-    {
-        size++;
-        curr = curr->next;
-    }
-    return (size);
-}
-
-void    ft_atostack(char **arr, t_stack **head)
-{
-    int data;
-
-    if (!(*arr) || !arr || ft_duplicates(arr) == 0)
-        ft_err();
-    while (*arr)
-    {
-        if (!ft_only_digits(*arr) || ft_overflow(*arr))
-            ft_err();
-        data = atoi(*arr);
-        ft_add_stack_end(head, ft_create_node(data));
-        arr++;
-    }
-}
-
-void	ft_stack_reverse(t_stack **head)
-{
-	t_stack *prev;
-	t_stack *curr;
-	t_stack *next;
-
-	prev = NULL;
 	curr = *head;
+	size = 0;
 	while (curr)
 	{
-		next = curr->next;
-		curr->next = prev;
-		prev = curr;
-		curr = next;
+		size++;
+		curr = curr->next;
 	}
-	*head = prev;
+	return (size);
+}
+
+void	ft_atostack(char **arr, t_stack **head)
+{
+	int data;
+
+	if (!(*arr) || !arr || ft_duplicates(arr) == 0)
+		ft_err();
+	while (*arr)
+	{
+		if (!ft_only_digits(*arr) || ft_overflow(*arr))
+			ft_err();
+		data = atoi(*arr);
+		ft_add_stack_end(head, ft_create_node(data));
+		arr++;
+	}
 }

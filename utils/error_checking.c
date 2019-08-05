@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_checking.c                                :+:      :+:    :+:   */
+/*   error_checking.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvan-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/10 13:55:42 by marvan-d          #+#    #+#             */
-/*   Updated: 2019/07/10 13:55:43 by marvan-d         ###   ########.fr       */
+/*   Created: 2019/08/05 09:44:42 by marvan-d          #+#    #+#             */
+/*   Updated: 2019/08/05 09:44:43 by marvan-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_err(void)
 {
-    ft_putendl_fd("Error", FT_STDERR);
+	ft_putendl_fd("Error", FT_STDERR);
 	exit(0);
 }
 
@@ -24,13 +24,13 @@ int		ft_only_digits(const char *str)
 		str++;
 	if (*str == '\0')
 		return (0);
-    while (*str)
+	while (*str)
 	{
-        if (!(ft_isdigit(*str)))
-            return (0);
+		if (!(ft_isdigit(*str)))
+			return (0);
 		str++;
 	}
-    return (1);
+	return (1);
 }
 
 int		ft_overflow(char *str)
@@ -60,15 +60,15 @@ int		ft_overflow(char *str)
 
 int		ft_duplicates(char **arr)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	tmp = *arr;
 	while (*arr)
 	{
 		i = 1;
 		tmp = *arr;
-		while(*(arr + i))
+		while (*(arr + i))
 		{
 			if (ft_strcmp(*(arr + i), tmp) == 0)
 				return (0);

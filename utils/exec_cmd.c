@@ -12,6 +12,16 @@
 
 #include <push_swap.h>
 
+static	void	arr_del(char **arr)
+{
+	int i;
+
+	i = -1;
+	while  (arr[++i])
+		free(arr[i]);
+	free(arr);
+}
+
 static	void	exec(int index, t_stack **stk_a, t_stack **stk_b)
 {
 	if (index == 3)
@@ -32,22 +42,22 @@ static	void	exec(int index, t_stack **stk_a, t_stack **stk_b)
 		ft_stack_reverse_rotate(stk_b);
 }
 
-void	exec_cmd(const char *cmd, t_stack **stk_a, t_stack **stk_b, int mode)
+void			exec_cmd(char *cmd, t_stack **stk_a, t_stack **stk_b, int mode)
 {
-	char **cmd_lst;
-	int index;
+	char	**cmd_lst;
+	int		index;
 
 	index = -1;
 	cmd_lst = ft_strsplit("sa,sb,ss,pa,pb,ra,rb,rr,rra,rrb,rrr", ',');
-
 	while (cmd_lst[++index])
 		if (ft_strequ(cmd, cmd_lst[index]))
-		{		
+		{
 			if (mode)
 				ft_putendl_fd(cmd, FT_STDOUT);
 			exec(index, stk_a, stk_b);
-			free(cmd_lst);
+			arr_del(cmd_lst);
 			return ;
 		}
+	arr_del(cmd_lst);
 	ft_err();
 }

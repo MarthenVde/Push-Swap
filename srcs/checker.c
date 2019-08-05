@@ -14,10 +14,10 @@
 
 int	main(int ac, char **av)
 {
-	int num_of_operations;
-	t_stack *a;
-	t_stack *b;
-	char *in_stream;
+	int		num_of_operations;
+	t_stack	*a;
+	t_stack	*b;
+	char	*in_stream;
 
 	a = NULL;
 	b = NULL;
@@ -30,26 +30,12 @@ int	main(int ac, char **av)
 	else
 		return (0);
 	while (get_next_line(FT_STDIN, &in_stream) > 0)
-	{
-		num_of_operations++;
 		exec_cmd(in_stream, &a, &b, 0);
-	}
-	//ft_putstr("Num of operations are: ");
-	//ft_putnbr(num_of_operations);
-	//ft_putchar('\n');
-	/*
-	ft_putstr("Stack a is now:\n");
-	ft_stack_print(&a);
-	*/
 	if (ft_stack_sorted(&a, &b))
 		ft_putendl("OK");
 	else
 		ft_putendl("KO");
-	/* 
-	ft_putendl("stack:");
-	ft_stack_print(&a);
-	*/
+	ft_stack_del(&a);
+	ft_stack_del(&b);
 	return (0);
 }
-
-

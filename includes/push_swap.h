@@ -31,14 +31,21 @@ typedef struct s_chunk
     int range;
 }               t_chunk;
 
-void    ft_easy_sort(t_stack **a, t_stack**b, int size);
-void	exec_cmd(const char *cmd, t_stack **stk_a, t_stack **stk_b, int mode);
+
+
+void	ft_stack_del(t_stack **head);
+int		range_upper(t_stack *head, int chunk_size);
+int		range_empty(t_stack *head, int range);
+int		find_range_highest(t_stack *head);
+int		find_range_lowest(t_stack *head);
+void    small_sort(t_stack **a, t_stack**b, int size);
+void	exec_cmd(char *cmd, t_stack **stk_a, t_stack **stk_b, int mode);
 void	ft_stack_reverse(t_stack **head);
-void	ft_chunking_sort(t_stack **a, t_stack **b, int s_size);
+void	range_sort(t_stack **a, t_stack **b, int s_size);
 void    ft_stack_print(t_stack **head);
 void    ft_add_stack_end(t_stack **head, t_stack *new);
-t_stack *ft_create_node(int data);
-void     ft_atostack(char **arr, t_stack **head);
+t_stack	*ft_create_node(int data);
+void	ft_atostack(char **arr, t_stack **head);
 int     ft_stack_size(t_stack **head);
 void	ft_add_stack_front(t_stack **head, t_stack *new);
 void	ft_stack_swap(t_stack **head);

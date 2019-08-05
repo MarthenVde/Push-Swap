@@ -14,9 +14,10 @@ HEADER_PATH = includes/
 LIB_PATH = libs/libft/libft.a
 CFLAGS = -Wall -Werror -Wextra
 UTILS =	utils/exec_cmd.c \
-		utils/ft_error_checking.c \
-		utils/sorting_algos/ft_chunking_sort.c \
-		utils/sorting_algos/ft_easy_sort.c
+		utils/error_checking.c \
+		utils/sorting_algos/range_sort.c \
+		utils/sorting_algos/range_utils.c\
+		utils/sorting_algos/small_sort.c
 
 SRC =	srcs/ft_basic_stack.c \
 		srcs/ft_stack_commands.c \

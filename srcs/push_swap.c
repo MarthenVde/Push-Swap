@@ -12,7 +12,6 @@
 
 #include <push_swap.h>
 
-
 int	main(int ac, char **av)
 {
 	t_stack *a;
@@ -29,10 +28,11 @@ int	main(int ac, char **av)
 	if (!ft_stack_sorted(&a, &b))
 	{
 		if (ft_stack_size(&a) < 5)
-			ft_easy_sort(&a, &b, ft_stack_size(&a));
+			small_sort(&a, &b, ft_stack_size(&a));
 		else
-			ft_chunking_sort(&a, &b, ft_stack_size(&a));
+			range_sort(&a, &b, ft_stack_size(&a));
 	}
+	ft_stack_del(&a);
+	ft_stack_del(&b);
 	return (0);
 }
- 

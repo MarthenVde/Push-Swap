@@ -12,17 +12,17 @@
 
 #include <push_swap.h>
 
-t_stack *ft_create_node(int data)
+t_stack	*ft_create_node(int data)
 {
-    t_stack *tmp;
+	t_stack	*tmp;
 
-    tmp = NULL;
-    if ((tmp = (t_stack *)malloc(sizeof(t_stack))))
-    {
-        tmp->data = data;
-        tmp->next = NULL;
-    }
-    return (tmp);
+	tmp = NULL;
+	if ((tmp = (t_stack *)malloc(sizeof(t_stack))))
+	{
+		tmp->data = data;
+		tmp->next = NULL;
+	}
+	return (tmp);
 }
 
 void	ft_add_stack_front(t_stack **head, t_stack *new)
@@ -34,17 +34,30 @@ void	ft_add_stack_front(t_stack **head, t_stack *new)
 	}
 }
 
-void    ft_add_stack_end(t_stack **head, t_stack *new)
+void	ft_add_stack_end(t_stack **head, t_stack *new)
 {
-    t_stack *curr;
+	t_stack *curr;
 
-    curr = *head;
-    if (curr)
-    {
-        while (curr->next)
-            curr = curr->next;
-        curr->next = new;
-    }
-    else
-        *head = new;
+	curr = *head;
+	if (curr)
+	{
+		while (curr->next)
+			curr = curr->next;
+		curr->next = new;
+	}
+	else
+		*head = new;
+}
+
+void	ft_stack_del(t_stack **head)
+{
+	t_stack *nxt;
+
+	while (*head)
+	{
+		nxt = (*head)->next;
+		free(*head);
+		*head = NULL;
+		*head = nxt;
+	}
 }
