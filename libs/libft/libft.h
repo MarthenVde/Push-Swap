@@ -27,7 +27,7 @@ typedef struct		s_list
 }					t_list;
 
 int					get_next_line(const int fd, char **line);
-int					ft_isupper(int c);			
+int					ft_isupper(int c);
 int					ft_islower(int c);
 int					ft_iswhitespace(int c);
 int					ft_word_count(const char *str, char c);

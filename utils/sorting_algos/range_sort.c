@@ -12,7 +12,7 @@
 
 #include <push_swap.h>
 
-static	int	det_flow(t_stack **head, int range, int len)
+static	int		det_flow(t_stack **head, int range, int len)
 {
 	int		i;
 	int		high;
@@ -37,7 +37,7 @@ static	int	det_flow(t_stack **head, int range, int len)
 	return (1);
 }
 
-static	int	det_flow_high(t_stack **head, int n)
+static	int		det_flow_high(t_stack **head, int n)
 {
 	int		start;
 	int		end;
@@ -74,7 +74,7 @@ static	void	push_ranges_b(t_stack **a, t_stack **b, t_chunk chunk)
 		chunk.range = range_upper(*a, chunk.size);
 		while (!range_empty(*a, chunk.range))
 		{
-			if ((*b) && (*b)->next  && (*b)->data < (*b)->next->data)
+			if ((*b) && (*b)->next && (*b)->data < (*b)->next->data)
 				exec_cmd("sb", a, b, 1);
 			if ((*a)->data <= chunk.range)
 				exec_cmd("pb", a, b, 1);
@@ -103,7 +103,7 @@ static	void	push_back_a(t_stack **a, t_stack **b, t_chunk chunk)
 	}
 }
 
-void		range_sort(t_stack **a, t_stack **b, int s_size)
+void			range_sort(t_stack **a, t_stack **b, int s_size)
 {
 	t_chunk	chunk;
 

@@ -14,30 +14,32 @@
 
 static	void	small_sort_3(t_stack **a, t_stack **b)
 {
-	t_stack *p;
+	t_stack	*p;
+	t_stack	*pn;
 
 	p = *a;
-	if (p->data > p->next->data && p->data < p->next->next->data)
+	pn = p->next;
+	if (p->data > pn->data && p->data < pn->next->data)
 		exec_cmd("sa", a, b, 1);
-	else if (p->data > p->next->data && p->next->data > p->next->next->data)
+	else if (p->data > pn->data && pn->data > pn->next->data)
 	{
 		exec_cmd("sa", a, b, 1);
 		exec_cmd("rra", a, b, 1);
 	}
-	else if (p->next->next->data < p->data && p->next->data < p->next->next->data)
+	else if (pn->next->data < p->data && pn->data < pn->next->data)
 		exec_cmd("ra", a, b, 1);
-	else if (p->next->data > p->next->next->data && p->data < p->next->next->data)
+	else if (pn->data > pn->next->data && p->data < pn->next->data)
 	{
 		exec_cmd("sa", a, b, 1);
 		exec_cmd("ra", a, b, 1);
 	}
-	else if (p->data < p->next->data && p->data > p->next->next->data)
+	else if (p->data < pn->data && p->data > pn->next->data)
 		exec_cmd("rra", a, b, 1);
 	else
 		return ;
 }
 
-void	small_sort_4(t_stack **a, t_stack **b)
+static	void	small_sort_4(t_stack **a, t_stack **b)
 {
 	exec_cmd("pb", a, b, 1);
 	small_sort_3(a, b);
@@ -55,7 +57,32 @@ void	small_sort_4(t_stack **a, t_stack **b)
 		exec_cmd("sa", a, b, 1);
 }
 
-void	small_sort(t_stack **a, t_stack **b, int size)
+static	void	small_sort_5(t_stack **a, t_stack **b)
+{
+	exec_cmd("pb", a, b, 1);
+	small_sort_4(a, b);
+	exec_cmd("pa", a, b, 1);
+	if ((*a)->data > (*a)->next->next->next->next->data)
+		exec_cmd("ra", a, b, 1);
+	else if ((*a)->data > (*a)->next->next->next->data)
+	{
+		exec_cmd("rra", a, b, 1);
+		exec_cmd("sa", a, b, 1);
+		exec_cmd("ra", a, b, 1);
+		exec_cmd("ra", a, b, 1);
+	}
+	else if ((*a)->data > (*a)->next->next->data)
+	{
+		exec_cmd("sa", a, b, 1);
+		exec_cmd("ra", a, b, 1);
+		exec_cmd("sa", a, b, 1);
+		exec_cmd("rra", a, b, 1);
+	}
+	else if ((*a)->data > (*a)->next->data)
+		exec_cmd("sa", a, b, 1);
+}
+
+void			small_sort(t_stack **a, t_stack **b, int size)
 {
 	t_stack *p;
 
@@ -73,4 +100,6 @@ void	small_sort(t_stack **a, t_stack **b, int size)
 		small_sort_3(a, b);
 	else if (size == 4)
 		small_sort_4(a, b);
+	else
+		small_sort_5(a, b);
 }

@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 		return (0);
 	if (!ft_stack_sorted(&a, &b))
 	{
-		if (ft_stack_size(&a) < 5)
+		if (ft_stack_size(&a) <= 5)
 			small_sort(&a, &b, ft_stack_size(&a));
 		else
 			range_sort(&a, &b, ft_stack_size(&a));
