@@ -58,14 +58,14 @@ void	ft_stack_reverse_rotate(t_stack **head)
 	}
 }
 
-void	ft_stack_push(t_stack **head_a, t_stack **head_b)
+void	ft_stack_push(t_stack **stk_a, t_stack **stk_b)
 {
 	t_stack *tmp;
 
-	tmp = *head_a;
-	if (*head_a)
+	tmp = *stk_a;
+	if (*stk_a)
 	{
-		*head_a = (*head_a)->next;
-		ft_add_stack_front(head_b, tmp);
+		*stk_a = (*stk_a)->next;
+		ft_add_stack_front(stk_b, tmp);
 	}
 }

@@ -35,51 +35,69 @@ static	void	small_sort_3(t_stack **a, t_stack **b)
 	}
 	else if (p->data < pn->data && p->data > pn->next->data)
 		exec_cmd("rra", a, b, 1);
-	else
-		return ;
 }
 
 static	void	small_sort_4(t_stack **a, t_stack **b)
 {
+	t_stack	*pn;
+
 	exec_cmd("pb", a, b, 1);
 	small_sort_3(a, b);
-	exec_cmd("pa", a, b, 1);
-	if ((*a)->data > (*a)->next->next->next->data)
-		exec_cmd("ra", a, b, 1);
-	else if ((*a)->data > (*a)->next->next->data)
+	pn = (*a)->next;
+	if ((*b)->data > pn->next->data)
 	{
-		exec_cmd("sa", a, b, 1);
+		exec_cmd("pa", a, b, 1);
 		exec_cmd("ra", a, b, 1);
-		exec_cmd("sa", a, b, 1);
-		exec_cmd("rra", a, b, 1);
 	}
-	else if ((*a)->data > (*a)->next->data)
+	else if ((*b)->data > pn->data)
+	{
+		exec_cmd("rra", a, b, 1);
+		exec_cmd("pa", a, b, 1);
+		exec_cmd("ra", a, b, 1);
+		exec_cmd("ra", a, b, 1);
+	}
+	else if ((*b)->data > (*a)->data)
+	{
+		exec_cmd("pa", a, b, 1);
 		exec_cmd("sa", a, b, 1);
+	}
+	else
+		exec_cmd("pa", a, b, 1);
 }
 
 static	void	small_sort_5(t_stack **a, t_stack **b)
 {
+	t_stack *pn;
+
 	exec_cmd("pb", a, b, 1);
 	small_sort_4(a, b);
-	exec_cmd("pa", a, b, 1);
-	if ((*a)->data > (*a)->next->next->next->next->data)
+	pn = (*a)->next;
+	if ((*b)->data > pn->next->next->data)
+	{
+		exec_cmd("pa", a, b, 1);
 		exec_cmd("ra", a, b, 1);
-	else if ((*a)->data > (*a)->next->next->next->data)
+	}
+	else if ((*b)->data > pn->next->data)
 	{
 		exec_cmd("rra", a, b, 1);
-		exec_cmd("sa", a, b, 1);
+		exec_cmd("pa", a, b, 1);
 		exec_cmd("ra", a, b, 1);
 		exec_cmd("ra", a, b, 1);
 	}
-	else if ((*a)->data > (*a)->next->next->data)
+	else if ((*b)->data > pn->data)
 	{
-		exec_cmd("sa", a, b, 1);
 		exec_cmd("ra", a, b, 1);
+		exec_cmd("pa", a, b, 1);
 		exec_cmd("sa", a, b, 1);
 		exec_cmd("rra", a, b, 1);
 	}
-	else if ((*a)->data > (*a)->next->data)
+	else if ((*b)->data > (*a)->data)
+	{
+		exec_cmd("pa", a, b, 1);
 		exec_cmd("sa", a, b, 1);
+	}
+	else
+		exec_cmd("pa", a, b, 1);
 }
 
 void			small_sort(t_stack **a, t_stack **b, int size)

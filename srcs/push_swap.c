@@ -30,7 +30,7 @@ int	main(int ac, char **av)
 		if (ft_stack_size(&a) <= 5)
 			small_sort(&a, &b, ft_stack_size(&a));
 		else
-			range_sort(&a, &b, ft_stack_size(&a));
+			range_sort(&a, &b, ft_stack_size(&a), 1);
 	}
 	ft_stack_del(&a);
 	ft_stack_del(&b);

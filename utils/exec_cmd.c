@@ -52,8 +52,14 @@ void			exec_cmd(char *cmd, t_stack **stk_a, t_stack **stk_b, int mode)
 	while (cmd_lst[++index])
 		if (ft_strequ(cmd, cmd_lst[index]))
 		{
-			if (mode)
+			if (mode == 1)
 				ft_putendl_fd(cmd, FT_STDOUT);
+			else if (mode == 2)
+			{
+				ft_putstr(YEL);
+				ft_putendl_fd(cmd, FT_STDOUT);
+				ft_putstr(RESET);
+			}
 			exec(index, stk_a, stk_b);
 			arr_del(cmd_lst);
 			return ;

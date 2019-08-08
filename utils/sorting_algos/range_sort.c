@@ -65,49 +65,49 @@ static	int		det_flow_high(t_stack **head, int n)
 	return (0);
 }
 
-static	void	push_ranges_b(t_stack **a, t_stack **b, t_chunk chunk)
+static	void	push_to_b(t_stack **a, t_stack **b, t_chunk chk, int m)
 {
 	int flow;
 
 	while (*a)
 	{
-		chunk.range = range_upper(*a, chunk.size);
-		while (!range_empty(*a, chunk.range))
+		chk.range = range_upper(*a, chk.size);
+		while (!range_empty(*a, chk.range))
 		{
 			if ((*b) && (*b)->next && (*b)->data < (*b)->next->data)
-				exec_cmd("sb", a, b, 1);
-			if ((*a)->data <= chunk.range)
-				exec_cmd("pb", a, b, 1);
-			flow = det_flow(a, chunk.range, ft_stack_size(a));
+				exec_cmd("sb", a, b, m);
+			if ((*a)->data <= chk.range)
+				exec_cmd("pb", a, b, m);
+			flow = det_flow(a, chk.range, ft_stack_size(a));
 			if (flow)
-				exec_cmd("ra", a, b, 1);
+				exec_cmd("ra", a, b, m);
 			else
-				exec_cmd("rra", a, b, 1);
+				exec_cmd("rra", a, b, m);
 		}
 	}
 }
 
-static	void	push_back_a(t_stack **a, t_stack **b, t_chunk chunk)
+static	void	push_to_a(t_stack **a, t_stack **b, t_chunk chk, int m)
 {
 	while (*b)
 	{
-		chunk.high = find_range_highest(*b);
-		while ((*b)->data != chunk.high)
+		chk.high = find_range_highest(*b);
+		while ((*b)->data != chk.high)
 		{
-			if (det_flow_high(b, chunk.high))
-				exec_cmd("rb", a, b, 1);
+			if (det_flow_high(b, chk.high))
+				exec_cmd("rb", a, b, m);
 			else
-				exec_cmd("rrb", a, b, 1);
+				exec_cmd("rrb", a, b, m);
 		}
-		exec_cmd("pa", a, b, 1);
+		exec_cmd("pa", a, b, m);
 	}
 }
 
-void			range_sort(t_stack **a, t_stack **b, int s_size)
+void			range_sort(t_stack **a, t_stack **b, int size, int mode)
 {
 	t_chunk	chunk;
 
-	chunk.size = (s_size >= 500) ? 32 : 20;
-	push_ranges_b(a, b, chunk);
-	push_back_a(a, b, chunk);
+	chunk.size = (size >= 500) ? 32 : 20;
+	push_to_b(a, b, chunk, mode);
+	push_to_a(a, b, chunk, mode);
 }
