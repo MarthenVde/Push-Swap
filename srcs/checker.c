@@ -18,6 +18,7 @@ int	main(int ac, char **av)
 	t_stack	*a;
 	t_stack	*b;
 	char	*in_stream;
+	int		size;
 
 	a = NULL;
 	b = NULL;
@@ -29,8 +30,14 @@ int	main(int ac, char **av)
 		ft_atostack(av + 1, &a);
 	else
 		return (0);
+	size = ft_stack_size(&a);
 	while (get_next_line(FT_STDIN, &in_stream) > 0)
-		exec_cmd(in_stream, &a, &b, 0);
+		{
+			//system("clear");
+			print_stack_v(&a, 1, size);
+			print_stack_v(&b, 2, size);
+			exec_cmd(in_stream, &a, &b, 0);
+		}
 	if (ft_stack_sorted(&a, &b))
 		ft_putendl("OK");
 	else

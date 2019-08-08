@@ -31,6 +31,7 @@ typedef	struct	s_chunk
 	int	range;
 }				t_chunk;
 
+void			print_stack_v(t_stack **head, int c, int size);
 void			ft_stack_del(t_stack **head);
 int				range_upper(t_stack *head, int chunk_size);
 int				range_empty(t_stack *head, int range);

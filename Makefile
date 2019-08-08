@@ -21,7 +21,8 @@ UTILS =	utils/exec_cmd.c \
 
 SRC =	srcs/ft_basic_stack.c \
 		srcs/ft_stack_commands.c \
-		srcs/ft_stack_operations.c
+		srcs/ft_stack_operations.c \
+		srcs/print_stack_v.c
 
 CHECKER = srcs/checker.c
 PUSHSWAP = srcs/push_swap.c
