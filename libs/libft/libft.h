@@ -15,6 +15,14 @@
 # define MAX_INT 2147483647
 # define MIN_INT -2147483648
 # define BUFF_SIZE 32
+# define RED "\x1B[31m"
+# define GRN "\x1B[32m"
+# define YEL "\x1B[33m"
+# define BLU "\x1B[34m"
+# define MAG "\x1B[35m"
+# define CYN "\x1B[36m"
+# define WHT "\x1B[37m"
+# define RESET "\x1B[0m"
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -26,6 +34,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+void				ft_putchar_col_fd(char *colour, int c, int fd);
 int					get_next_line(const int fd, char **line);
 int					ft_isupper(int c);
 int					ft_islower(int c);
@@ -59,7 +68,7 @@ void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-void				ft_putchar(char c);
+void				ft_putchar(int c);
 void				ft_putnbr(int n);
 void				ft_putstr(char const *s);
 void				ft_putstr(char const *s);

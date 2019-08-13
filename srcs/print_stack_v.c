@@ -11,55 +11,64 @@
 /* ************************************************************************** */
 
 #include <push_swap.h>
+#include <sys/ioctl.h>
 
-void	print_stack_v(t_stack **head, int c, int size)
+void	print_stack_v(t_stack *stk_a,  t_stack *stk_b, int highest)
 {
 	int i;
 	int div;
-	t_stack *tmp;
-	char chr;
-
-	tmp = *head;
-	if (size > 1000000000)
-		div = 100000000;
-	else if (size > 100000000)
-		div = 10000000;
-	else if (size > 10000000)
-		div = 1000000;
-	else if (size > 1000000)
-		div = 100000;
-	else if (size > 100000)
-		div = 10000;
-	else if (size > 10000)
-		div = 128;
-	else if (size > 1000)
-		div = 16;
-	else if (size > 500)
-		div = 8;
-	else if (size > 200)
-		div = 4;
-	else if (size > 100)
-		div = 2;
-	else
-		div = 1;
-	if (size > 400)
-		chr = '.';
-	else
-		chr = '|';
-	if (c == 1)
-		ft_putstr(CYN);
-	else if (c == 2)
-		ft_putstr(MAG);
-	while (tmp)
+	struct winsize w;
+    
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	div = 1;
+	while ((abs(highest) / div) > (w.ws_col / 2))
+		div++;
+	while (stk_a && stk_b)
 	{
-		i = 0;
-		while (i <= (tmp->data/div))
+		i = -1;
+		while (++i <= (abs(stk_a->data) / div))
 		{
-			ft_putchar(chr);
-			i++;
+			ft_putstr(CYN);
+			ft_putchar(0x2586);
+			ft_putstr(RESET);
+		}
+		while (++i <= (w.ws_col - abs(stk_b->data) / div))
+			ft_putchar(' ');
+		while (++i <= w.ws_col)
+		{
+			ft_putstr(MAG);
+			ft_putchar(0x2586);
+			ft_putstr(RESET);
 		}
 		ft_putchar('\n');
-		tmp = tmp->next;
+		stk_a = stk_a->next;
+		stk_b = stk_b->next;
+	}
+	while (stk_a)
+	{
+		i = -1;
+		while (++i <= (abs(stk_a->data) / div))
+		{
+			ft_putstr(CYN);
+			ft_putchar(0x2586);
+			ft_putstr(RESET);
+		}
+		ft_putchar('\n');
+		stk_a = stk_a->next;
+	}
+	while (stk_b)
+	{
+		i = -1;
+		while (++i <= (w.ws_col - (abs(stk_b->data) / div)))
+			ft_putchar(' ');
+		while (++i <= w.ws_col)
+		{
+			ft_putstr(MAG);
+			ft_putchar(0x2586);
+			ft_putstr(RESET);
+		}
+		ft_putchar('\n');
+		stk_b = stk_b->next;
 	}
 	ft_putstr(RESET);
 }

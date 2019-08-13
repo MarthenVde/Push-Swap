@@ -14,30 +14,33 @@
 
 int	main(int ac, char **av)
 {
-	int		num_of_operations;
 	t_stack	*a;
 	t_stack	*b;
 	char	*in_stream;
-	int		size;
+	int		high;
 
 	a = NULL;
 	b = NULL;
-	num_of_operations = 0;
+	av += 1;
+	ac--;
 	in_stream = NULL;
-	if (ac == 2)
-		ft_atostack(ft_strsplit(*(av + 1), ' '), &a);
-	else if (ac > 2)
-		ft_atostack(av + 1, &a);
+	if (ac == 1)
+	{
+		ft_atostack(ft_strsplit(*(av), ' '), &a);
+	}
+	else if (ac > 1)
+		ft_atostack(av, &a);
 	else
 		return (0);
-	size = ft_stack_size(&a);
+	high = find_range_highest(a);
 	while (get_next_line(FT_STDIN, &in_stream) > 0)
 		{
-			//system("clear");
-			print_stack_v(&a, 1, size);
-			print_stack_v(&b, 2, size);
 			exec_cmd(in_stream, &a, &b, 0);
+			print_stack_v(a, b, high);
+			usleep(51000);
+			ft_putstr("\e[1;1H\e[2J");
 		}
+	print_stack_v(a, b, high);
 	if (ft_stack_sorted(&a, &b))
 		ft_putendl("OK");
 	else

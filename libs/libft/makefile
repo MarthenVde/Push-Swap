@@ -73,7 +73,8 @@ FILES = ft_bzero.c \
 		ft_strndup.c \
 		ft_iswhitespace.c \
 		ft_word_count.c \
-		get_next_line.c
+		get_next_line.c \
+		ft_putchar_col_fd.c
 
 all: $(NAME)
 $(NAME): $(FILES)
