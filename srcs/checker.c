@@ -70,7 +70,7 @@ int	main(int ac, char **av)
 				ft_putchar(0x2550);
 				ft_putchar(0x2555);
 				ft_putchar('\n');
-				ft_putchar(0x2551);
+				ft_putchar(0x2502);
 				ft_putstr(GRN);
 				ft_putstr(in_stream);
 				ft_putstr(RESET);
@@ -78,7 +78,7 @@ int	main(int ac, char **av)
 					ft_putstr("  ");
 				else
 					ft_putchar(' ');
-				ft_putchar(0x2551);
+				ft_putchar(0x2502);
 				ft_putchar('\n');
 				ft_putchar(0x2558);
 				ft_putchar(0x2550);
