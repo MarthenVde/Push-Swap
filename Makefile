@@ -17,7 +17,8 @@ UTILS =	utils/exec_cmd.c \
 		utils/error_checking.c \
 		utils/sorting_algos/range_sort.c \
 		utils/sorting_algos/range_utils.c\
-		utils/sorting_algos/small_sort.c
+		utils/sorting_algos/small_sort.c \
+		utils/flags.c
 
 SRC =	srcs/ft_basic_stack.c \
 		srcs/ft_stack_commands.c \

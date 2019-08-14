@@ -29,7 +29,7 @@ void	print_stack_v(t_stack *stk_a,  t_stack *stk_b, int highest)
 		while (++i <= (abs(stk_a->data) / div))
 		{
 			ft_putstr(CYN);
-			ft_putchar(0x2586);
+			ft_putchar(0x2585);
 			ft_putstr(RESET);
 		}
 		while (++i <= (w.ws_col - abs(stk_b->data) / div))
@@ -37,7 +37,7 @@ void	print_stack_v(t_stack *stk_a,  t_stack *stk_b, int highest)
 		while (++i <= w.ws_col)
 		{
 			ft_putstr(MAG);
-			ft_putchar(0x2586);
+			ft_putchar(0x2585);
 			ft_putstr(RESET);
 		}
 		ft_putchar('\n');
@@ -59,9 +59,9 @@ void	print_stack_v(t_stack *stk_a,  t_stack *stk_b, int highest)
 	while (stk_b)
 	{
 		i = -1;
-		while (++i <= (w.ws_col - (abs(stk_b->data) / div)))
+		while (++i < (w.ws_col - (abs(stk_b->data) / div)))
 			ft_putchar(' ');
-		while (++i <= w.ws_col)
+		while (++i < w.ws_col)
 		{
 			ft_putstr(MAG);
 			ft_putchar(0x2586);

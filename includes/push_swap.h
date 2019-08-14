@@ -31,6 +31,15 @@ typedef	struct	s_chunk
 	int	range;
 }				t_chunk;
 
+typedef	struct	s_flag
+{
+	int v;
+	int c;
+	int n;
+}				t_flag;
+
+int				set_flags(const char *av, t_flag *f);
+int				check_flags(const char *av);
 void			print_stack_v(t_stack *stk_a, t_stack *stk_b, int highest);
 void			ft_stack_del(t_stack **head);
 int				range_upper(t_stack *head, int chunk_size);
