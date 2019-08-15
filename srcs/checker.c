@@ -21,22 +21,19 @@ int	main(int ac, char **av)
 	int		high;
 	int		nr_opp;
 
-	flags.v = 0;
-	flags.c = 0;
-	flags.n = 0;
 	nr_opp = 0;
 	a = NULL;
 	b = NULL;
-	av += 1;
+	av++;
 	ac--;
 	in_stream = NULL;
 	while (*av)
 	{
-		if (check_flags(*av) == 1)
+		if (check_flags(*av))
 		{
-			if (set_flags(*av, &flags) == 0)
+			if (!set_flags(*av, &flags))
 				ft_err();
-			av += 1;
+			av++;
 			ac--;
 		}
 		else
@@ -63,31 +60,7 @@ int	main(int ac, char **av)
 			}
 			if (flags.c)
 			{
-				ft_putchar(0x2552);
-				ft_putchar(0x2550);
-				ft_putchar(0x2550);
-				ft_putchar(0x2550);
-				ft_putchar(0x2550);
-				ft_putchar(0x2555);
-				ft_putchar('\n');
-				ft_putchar(0x2502);
-				ft_putstr(GRN);
-				ft_putstr(in_stream);
-				ft_putstr(RESET);
-				if (ft_strlen(in_stream) < 3)
-					ft_putstr("  ");
-				else
-					ft_putchar(' ');
-				ft_putchar(0x2502);
-				ft_putchar('\n');
-				ft_putchar(0x2558);
-				ft_putchar(0x2550);
-				ft_putchar(0x2550);
-				ft_putchar(0x2550);
-				ft_putchar(0x2550);
-				ft_putchar(0x255B);
-
-				ft_putstr("\n");
+				print_box(3, in_stream);
 				if (!(flags.v))
 				{
 					usleep(51000);
@@ -100,24 +73,13 @@ int	main(int ac, char **av)
 		print_stack_v(a, b, high);
 	if (flags.n)
 	{
-		ft_putstr(YEL);
-		ft_putstr("Ammount of operations [");
 		ft_putnbr(nr_opp);
-		ft_putendl("]");
-		ft_putstr(RESET);
+		ft_putendl(" operations");
 	}
 	if (ft_stack_sorted(&a, &b))
-	{
-		ft_putstr(GRN);
 		ft_putendl("OK");
-		ft_putstr(RESET);
-	}
 	else
-	{
-		ft_putstr(RED);
 		ft_putendl("KO");
-		ft_putstr(RESET);
-	}
 	ft_stack_del(&a);
 	ft_stack_del(&b);
 	return (0);

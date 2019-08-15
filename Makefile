@@ -9,37 +9,42 @@
 #    Updated: 2019/06/21 17:01:31 by marvan-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-HEADER_PATH = includes/
-LIB_PATH = libs/libft/libft.a
+HFILE = ./includes/push_swap.h
+LINKER = -L./libft -lft
 CFLAGS = -Wall -Werror -Wextra
-UTILS =	utils/exec_cmd.c \
-		utils/error_checking.c \
-		utils/sorting_algos/range_sort.c \
-		utils/sorting_algos/range_utils.c\
-		utils/sorting_algos/small_sort.c \
-		utils/flags.c
-
-SRC =	srcs/ft_basic_stack.c \
-		srcs/ft_stack_commands.c \
-		srcs/ft_stack_operations.c \
-		srcs/print_stack_v.c
-
-CHECKER = srcs/checker.c
-PUSHSWAP = srcs/push_swap.c
+LIBFILE = ./libft/libft.a
+NAME_CH = checker
+NAME_PS = push_swap
 CC = gcc
 
-all: checker pushswap
+SRC =	srcs/utils/exec_cmd.c \
+		srcs/utils/error_checking.c \
+		srcs/sorting_algos/range_sort.c \
+		srcs/sorting_algos/range_utils.c\
+		srcs/sorting_algos/small_sort.c \
+		srcs/utils/flags.c \
+		srcs/stack/ft_basic_stack.c \
+		srcs/stack/ft_stack_commands.c \
+		srcs/stack/ft_stack_operations.c \
+		srcs/utils/print_stack_v.c
 
-lib:
-	cd libs/libft && make
-libclean:
-	cd libs/libft && make fclean
-checker: lib
-	$(CC) $(CFLAGS) -I$(HEADER_PATH) $(SRC) $(CHECKER) $(UTILS) -o checker $(LIB_PATH)
-pushswap: lib
-	$(CC) $(CFLAGS) -I$(HEADER_PATH) $(SRC) $(PUSHSWAP) $(UTILS) -o push_swap $(LIB_PATH)
+all: $(LIBFILE) $(NAME_CH) $(NAME_PS) $(HFILE)
 
-clean: libclean
-	rm checker push_swap
+$(LIBFILE):
+	make -C libft
+
+$(NAME_CH): srcs/checker.c $(SRC) $(HFILE)
+	$(CC) -I includes/ $(CFLAGS) srcs/checker.c $(SRC) $(LINKER) -o $(NAME_CH)
+
+$(NAME_PS): srcs/push_swap.c $(SRC) $(HFILE)
+	$(CC) -I includes/ $(CFLAGS) srcs/push_swap.c $(SRC) $(LINKER) -o $(NAME_PS)
+
+clean:
+	rm $(NAME_CH) $(NAME_PS)
+
+fclean:
+	make -C libft fclean
+	rm $(NAME_CH) $(NAME_PS)
+	
+
 re: clean all

@@ -12,8 +12,6 @@
 
 #include <push_swap.h>
 
-#include <stdio.h>
-
 int		check_flags(const char *av)
 {
 	if (*av == '-')
@@ -47,4 +45,29 @@ int		set_flags(const char *av, t_flag *f)
 		av++;
 	}
 	return (1);
+}
+
+void	print_box(int w, char *str)
+{
+	int i;
+
+	i = -1;
+	ft_putchar(0x2552);
+	while (++i < w)
+		ft_putchar(0x2550);
+	ft_putchar(0x2555);
+	ft_putchar('\n');
+	ft_putchar(0x2502);
+	ft_putstr(str);
+	i = ft_strlen(str) - 1;
+	while (++i < w)
+		ft_putchar(' ');
+	ft_putchar(0x2502);
+	ft_putchar('\n');
+	ft_putchar(0x2558);
+	i = -1;
+	while (++i < w)
+		ft_putchar(0x2550);
+	ft_putchar(0x255B);
+	ft_putchar('\n');
 }

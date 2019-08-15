@@ -34,6 +34,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+void				ft_putstr_col_fd(char *colour, char const *s, int fd);
 void				ft_putchar_col_fd(char *colour, int c, int fd);
 int					get_next_line(const int fd, char **line);
 int					ft_isupper(int c);
@@ -72,7 +73,7 @@ void				ft_putchar(int c);
 void				ft_putnbr(int n);
 void				ft_putstr(char const *s);
 void				ft_putstr(char const *s);
-void				ft_putchar_fd(char c, int fd);
+void				ft_putchar_fd(int c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);

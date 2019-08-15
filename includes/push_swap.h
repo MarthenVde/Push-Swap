@@ -6,13 +6,13 @@
 /*   By: marvan-d <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 12:43:28 by marvan-d          #+#    #+#             */
-/*   Updated: 2019/07/01 12:43:29 by marvan-d         ###   ########.fr       */
+/*   Updated: 2019/08/15 15:12:15 by marvan-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "libft.h"
+# include "../libft/libft.h"
 # define FT_STDIN 0
 # define FT_STDOUT 1
 # define FT_STDERR 2
@@ -33,11 +33,12 @@ typedef	struct	s_chunk
 
 typedef	struct	s_flag
 {
-	int v;
-	int c;
-	int n;
+	char v : 1;
+	char c : 1;
+	char n : 1;
 }				t_flag;
 
+void			print_box(int w, char *str);
 int				set_flags(const char *av, t_flag *f);
 int				check_flags(const char *av);
 void			print_stack_v(t_stack *stk_a, t_stack *stk_b, int highest);

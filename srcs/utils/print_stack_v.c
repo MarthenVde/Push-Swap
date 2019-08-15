@@ -13,6 +13,20 @@
 #include <push_swap.h>
 #include <sys/ioctl.h>
 
+static	void	print_stk_a(t_stack *stk, int div)
+{
+	int i;
+
+	while (stk)
+	{
+		i = -1;
+		while (++i <= (abs(stk->data) / div))
+			ft_putchar_col_fd(CYN, 0x2585, FT_STDOUT);
+		ft_putchar('\n');
+		stk = stk->next;
+	}
+}
+
 void	print_stack_v(t_stack *stk_a,  t_stack *stk_b, int highest)
 {
 	int i;
@@ -27,46 +41,23 @@ void	print_stack_v(t_stack *stk_a,  t_stack *stk_b, int highest)
 	{
 		i = -1;
 		while (++i <= (abs(stk_a->data) / div))
-		{
-			ft_putstr(CYN);
-			ft_putchar(0x2585);
-			ft_putstr(RESET);
-		}
+			ft_putchar_col_fd(CYN, 0x2585, FT_STDOUT);
 		while (++i <= (w.ws_col - abs(stk_b->data) / div))
 			ft_putchar(' ');
 		while (++i <= w.ws_col)
-		{
-			ft_putstr(MAG);
-			ft_putchar(0x2585);
-			ft_putstr(RESET);
-		}
+			ft_putchar_col_fd(MAG, 0x2585, FT_STDOUT);
 		ft_putchar('\n');
 		stk_a = stk_a->next;
 		stk_b = stk_b->next;
 	}
-	while (stk_a)
-	{
-		i = -1;
-		while (++i <= (abs(stk_a->data) / div))
-		{
-			ft_putstr(CYN);
-			ft_putchar(0x2586);
-			ft_putstr(RESET);
-		}
-		ft_putchar('\n');
-		stk_a = stk_a->next;
-	}
+	print_stk_a(stk_a, div);
 	while (stk_b)
 	{
 		i = -1;
 		while (++i < (w.ws_col - (abs(stk_b->data) / div)))
 			ft_putchar(' ');
 		while (++i < w.ws_col)
-		{
-			ft_putstr(MAG);
-			ft_putchar(0x2586);
-			ft_putstr(RESET);
-		}
+			ft_putchar_col_fd(MAG, 0x2585, FT_STDOUT);
 		ft_putchar('\n');
 		stk_b = stk_b->next;
 	}
