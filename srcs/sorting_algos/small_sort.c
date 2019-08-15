@@ -12,20 +12,12 @@
 
 #include <push_swap.h>
 
-static	void	cmd_one(t_stack **a, t_stack **b)
+static	void	cmd(t_stack **a, t_stack **b)
 {
 	exec_cmd("rra", a, b, 1);
 	exec_cmd("pa", a, b, 1);
 	exec_cmd("ra", a, b, 1);
 	exec_cmd("ra", a, b, 1);
-}
-
-static	void	cmd_two(t_stack **a, t_stack **b)
-{
-	exec_cmd("ra", a, b, 1);
-	exec_cmd("pa", a, b, 1);
-	exec_cmd("sa", a, b, 1);
-	exec_cmd("rra", a, b, 1);
 }
 
 static	void	small_sort_3(t_stack **a, t_stack **b)
@@ -66,7 +58,7 @@ static	void	small_sort_4(t_stack **a, t_stack **b)
 		exec_cmd("ra", a, b, 1);
 	}
 	else if ((*b)->data > pn->data)
-		cmd_one(a, b);
+		cmd(a, b);
 	else if ((*b)->data > (*a)->data)
 	{
 		exec_cmd("pa", a, b, 1);
@@ -78,20 +70,22 @@ static	void	small_sort_4(t_stack **a, t_stack **b)
 
 static	void	small_sort_5(t_stack **a, t_stack **b)
 {
-	t_stack *pn;
-
 	exec_cmd("pb", a, b, 1);
 	small_sort_4(a, b);
-	pn = (*a)->next;
-	if ((*b)->data > pn->next->next->data)
+	if ((*b)->data > (*a)->next->next->next->data)
 	{
 		exec_cmd("pa", a, b, 1);
 		exec_cmd("ra", a, b, 1);
 	}
-	else if ((*b)->data > pn->next->data)
-		cmd_one(a, b);
-	else if ((*b)->data > pn->data)
-		cmd_two(a, b);
+	else if ((*b)->data > (*a)->next->next->data)
+		cmd(a, b);
+	else if ((*b)->data > (*a)->next->data)
+	{
+		exec_cmd("ra", a, b, 1);
+		exec_cmd("pa", a, b, 1);
+		exec_cmd("sa", a, b, 1);
+		exec_cmd("rra", a, b, 1);
+	}
 	else if ((*b)->data > (*a)->data)
 	{
 		exec_cmd("pa", a, b, 1);

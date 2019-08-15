@@ -6,7 +6,7 @@
 #    By: marvan-d <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/15 13:40:07 by marvan-d          #+#    #+#              #
-#    Updated: 2019/08/15 18:30:57 by marvan-d         ###   ########.fr        #
+#    Updated: 2019/08/15 19:48:19 by marvan-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-ARG=`ruby -e "puts (0..19).to_a.shuffle.join(' ')"`; ./push_swap $ARG | ./checker -v $ARG
+ARG=`ruby -e "puts (0..14).to_a.shuffle.join(' ')"`; ./push_swap $ARG | ./checker -v $ARG

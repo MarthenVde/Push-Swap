@@ -12,6 +12,24 @@
 
 #include <push_swap.h>
 
+static	void	pass_flags(int *ac, char **av, t_flag *f)
+{
+	av++;
+	ac--;
+	while (*av)
+	{
+		if (check_flags(*av))
+		{
+			if (!set_flags(*av, f))
+				ft_err();
+			av++;
+			ac--;
+		}
+		else
+			return;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_flag flags;
@@ -24,22 +42,7 @@ int	main(int ac, char **av)
 	nr_opp = 0;
 	a = NULL;
 	b = NULL;
-	av++;
-	ac--;
-	in_stream = NULL;
-	while (*av)
-	{
-		if (check_flags(*av))
-		{
-			if (!set_flags(*av, &flags))
-				ft_err();
-			av++;
-			ac--;
-		}
-		else
-			break;
-		
-	}
+	pass_flags(&ac, av, &flags);
 	if (ac == 1)
 	{
 		ft_atostack(ft_strsplit(*(av), ' '), &a);
@@ -52,21 +55,21 @@ int	main(int ac, char **av)
 	while (get_next_line(FT_STDIN, &in_stream) > 0)
 		{
 			exec_cmd(in_stream, &a, &b, 0);
-			if (flags.v)
-			{
-				print_stack_v(a, b, high);
-				usleep(51000);
-				ft_putstr("\e[1;1H\e[2J");
-			}
-			if (flags.c)
-			{
-				print_box(3, in_stream);
-				if (!(flags.v))
-				{
-					usleep(51000);
-					ft_putstr("\e[1;1H\e[2J");
-				}
-			}
+				if (flags.v)
+	{
+		print_stack_v(a, b, high);
+		usleep(60000);
+		ft_putstr("\e[1;1H\e[2J");
+	}
+	if (flags.c)
+	{
+		print_box(3, in_stream);
+		if (!(flags.v))
+		{
+			usleep(60000);
+			ft_putstr("\e[1;1H\e[2J");
+		}
+	}
 			nr_opp++;
 		}
 	if (flags.v)
@@ -77,9 +80,9 @@ int	main(int ac, char **av)
 		ft_putendl(" operations");
 	}
 	if (ft_stack_sorted(&a, &b))
-		ft_putendl("OK");
+		ft_putstr_col_fd(GRN, "OK\n", FT_STDOUT);
 	else
-		ft_putendl("KO");
+		ft_putstr_col_fd(RED, "KO\n", FT_STDOUT);
 	ft_stack_del(&a);
 	ft_stack_del(&b);
 	return (0);
