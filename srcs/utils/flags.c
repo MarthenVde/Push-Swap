@@ -52,22 +52,22 @@ void	print_box(int w, char *str)
 	int i;
 
 	i = -1;
-	ft_putchar(0x2552);
+	ft_putchar_col_fd(YEL, 0x2552, FT_STDOUT);
 	while (++i < w)
-		ft_putchar(0x2550);
-	ft_putchar(0x2555);
+		ft_putchar_col_fd(YEL, 0x2550, FT_STDOUT);
+	ft_putchar_col_fd(YEL, 0x2555, FT_STDOUT);
 	ft_putchar('\n');
-	ft_putchar(0x2502);
-	ft_putstr(str);
+	ft_putchar_col_fd(YEL, 0x2502, FT_STDOUT);
+	ft_putstr_col_fd(GRN, str, FT_STDOUT);
 	i = ft_strlen(str) - 1;
 	while (++i < w)
 		ft_putchar(' ');
-	ft_putchar(0x2502);
+	ft_putchar_col_fd(YEL, 0x2502, FT_STDOUT);
 	ft_putchar('\n');
-	ft_putchar(0x2558);
+	ft_putchar_col_fd(YEL, 0x2558, FT_STDOUT);
 	i = -1;
 	while (++i < w)
-		ft_putchar(0x2550);
-	ft_putchar(0x255B);
+		ft_putchar_col_fd(YEL, 0x2550, FT_STDOUT);
+	ft_putchar_col_fd(YEL, 0x255B, FT_STDOUT);
 	ft_putchar('\n');
 }

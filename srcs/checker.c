@@ -12,78 +12,94 @@
 
 #include <push_swap.h>
 
-static	void	pass_flags(int *ac, char **av, t_flag *f)
+static	void	pass_flags(int *ac, char ***av, t_flag *f)
 {
-	av++;
-	ac--;
-	while (*av)
+	(*av)++;
+	(*ac)--;
+	while (**av)
 	{
-		if (check_flags(*av))
+		if (check_flags(**av))
 		{
-			if (!set_flags(*av, f))
+			if (!set_flags(**av, f))
 				ft_err();
-			av++;
-			ac--;
+			(*av)++;
+			(*ac)--;
 		}
 		else
-			return;
+			return ;
 	}
 }
 
-int	main(int ac, char **av)
+static	int		set_stack_a(int ac, char **av, t_stack **a)
 {
-	t_flag flags;
-	t_stack	*a;
-	t_stack	*b;
+	if (ac == 1)
+		ft_atostack(ft_strsplit(*av, ' '), a);
+	else if (ac > 1)
+		ft_atostack(av, a);
+	else
+		return (0);
+	return (1);
+}
+
+static	int		read_commands(t_stack **a, t_stack **b, t_flag f, int high)
+{
 	char	*in_stream;
-	int		high;
 	int		nr_opp;
 
 	nr_opp = 0;
-	a = NULL;
-	b = NULL;
-	pass_flags(&ac, av, &flags);
-	if (ac == 1)
-	{
-		ft_atostack(ft_strsplit(*(av), ' '), &a);
-	}
-	else if (ac > 1)
-		ft_atostack(av, &a);
-	else
-		return (0);
-	high = find_range_highest(a);
 	while (get_next_line(FT_STDIN, &in_stream) > 0)
-		{
-			exec_cmd(in_stream, &a, &b, 0);
-				if (flags.v)
 	{
-		print_stack_v(a, b, high);
-		usleep(60000);
-		ft_putstr("\e[1;1H\e[2J");
-	}
-	if (flags.c)
-	{
-		print_box(3, in_stream);
-		if (!(flags.v))
+		exec_cmd(in_stream, a, b, 0);
+		if (f.v)
 		{
+			print_stack_v(*(a), *(b), high);
 			usleep(60000);
 			ft_putstr("\e[1;1H\e[2J");
 		}
-	}
-			nr_opp++;
+		if (f.c)
+		{
+			print_box(3, in_stream);
+			if (!(f.v))
+			{
+				usleep(60000);
+				ft_putstr("\e[1;1H\e[2J");
+			}
 		}
+		nr_opp++;
+	}
+	if (f.c && !f.v)
+		print_box(3, in_stream);
+	return (nr_opp);
+}
+
+static	void	print_num_opp(int nbr)
+{
+	ft_putstr_col_fd(YEL, "The number of commands are [", FT_STDOUT);
+	ft_putnbr(nbr);
+	ft_putstr_col_fd(YEL, "]\n", FT_STDOUT);
+}
+
+int				main(int ac, char **av)
+{
+	t_flag	flags;
+	t_stack	*a;
+	t_stack	*b;
+	int		high;
+	int		nr_opp;
+
+	pass_flags(&ac, &av, &flags);
+	if (!set_stack_a(ac, av, &a))
+		return (0);
+	high = find_range_highest(a);
+	nr_opp = read_commands(&a, &b, flags, high);
 	if (flags.v)
 		print_stack_v(a, b, high);
 	if (flags.n)
-	{
-		ft_putnbr(nr_opp);
-		ft_putendl(" operations");
-	}
+		print_num_opp(nr_opp);
 	if (ft_stack_sorted(&a, &b))
 		ft_putstr_col_fd(GRN, "OK\n", FT_STDOUT);
 	else
 		ft_putstr_col_fd(RED, "KO\n", FT_STDOUT);
-	ft_stack_del(&a);
-	ft_stack_del(&b);
+	free_stacks(&a, &b);
 	return (0);
 }

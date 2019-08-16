@@ -61,3 +61,9 @@ void	ft_stack_del(t_stack **head)
 		*head = nxt;
 	}
 }
+
+void	free_stacks(t_stack **stk_a, t_stack **stk_b)
+{
+	ft_stack_del(stk_a);
+	ft_stack_del(stk_b);
+}

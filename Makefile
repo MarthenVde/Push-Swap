@@ -42,9 +42,8 @@ $(NAME_PS): srcs/push_swap.c $(SRC) $(HFILE)
 clean:
 	rm $(NAME_CH) $(NAME_PS)
 
-fclean:
+fclean: clean
 	make -C libft fclean
-	rm $(NAME_CH) $(NAME_PS)
 	
 
 re: clean all

@@ -32,7 +32,6 @@ int	main(int ac, char **av)
 		else
 			range_sort(&a, &b, ft_stack_size(&a), 1);
 	}
-	ft_stack_del(&a);
-	ft_stack_del(&b);
+	free_stacks(&a, &b);
 	return (0);
 }
