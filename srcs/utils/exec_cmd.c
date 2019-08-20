@@ -12,14 +12,17 @@
 
 #include <push_swap.h>
 
-static	void	arr_del(char **arr)
+void			arr_del(char **arr)
 {
 	int i;
 
 	i = -1;
-	while (arr[++i])
-		free(arr[i]);
-	free(arr);
+	if (arr)
+	{
+		while (arr[++i])
+			ft_strdel(&(arr[i]));
+		free(arr);
+	}
 }
 
 static	void	exec(int index, t_stack **stk_a, t_stack **stk_b)

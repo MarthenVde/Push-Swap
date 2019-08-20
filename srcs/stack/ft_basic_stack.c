@@ -51,15 +51,17 @@ void	ft_add_stack_end(t_stack **head, t_stack *new)
 
 void	ft_stack_del(t_stack **head)
 {
-	t_stack *nxt;
+	t_stack *tmp;
+	t_stack *curr;
 
-	while (*head)
+	curr = *head;
+	while (curr)
 	{
-		nxt = (*head)->next;
-		free(*head);
-		*head = NULL;
-		*head = nxt;
+		tmp = curr;
+		curr = curr->next;
+		free(tmp);
 	}
+	*head = NULL;
 }
 
 void	free_stacks(t_stack **stk_a, t_stack **stk_b)

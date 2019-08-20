@@ -16,13 +16,18 @@ int	main(int ac, char **av)
 {
 	t_stack *a;
 	t_stack *b;
+	char	**stk_arr;
 
-	a = NULL;
-	b = NULL;
-	if (ac == 2)
-		ft_atostack(ft_strsplit(*(av + 1), ' '), &a);
-	else if (ac > 2)
-		ft_atostack(av + 1, &a);
+	av++;
+	ac--;
+	if (ac == 1)
+	{
+		stk_arr = ft_strsplit(*av, ' ');
+		ft_atostack(stk_arr, &a);
+		arr_del(stk_arr);
+	}
+	else if (ac > 1)
+		ft_atostack(av, &a);
 	else
 		return (0);
 	if (!ft_stack_sorted(&a, &b))

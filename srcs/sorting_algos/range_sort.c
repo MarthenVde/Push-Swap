@@ -37,7 +37,7 @@ static	int		det_flow(t_stack **head, int range, int len)
 	return (1);
 }
 
-static	int		det_flow_high(t_stack **head, int n)
+static	int		det_flow_equ(t_stack **head, int n)
 {
 	int		start;
 	int		end;
@@ -74,10 +74,17 @@ static	void	push_to_b(t_stack **a, t_stack **b, t_chunk chk, int m)
 		chk.range = range_upper(*a, chk.size);
 		while (!range_empty(*a, chk.range))
 		{
-			if ((*b) && (*b)->next && (*b)->data < (*b)->next->data)
-				exec_cmd("sb", a, b, m);
 			if ((*a)->data <= chk.range)
+			{
+				if ((*b) && (*b)->next)
+				{
+					if ((*b)->data < (*b)->next->data)
+						exec_cmd("sb", a, b, m);
+					else if ((*b)->data > stack_end(*b))
+						exec_cmd("rb", a, b, m);
+				}
 				exec_cmd("pb", a, b, m);
+			}
 			flow = det_flow(a, chk.range, ft_stack_size(a));
 			if (flow)
 				exec_cmd("ra", a, b, m);
@@ -94,7 +101,7 @@ static	void	push_to_a(t_stack **a, t_stack **b, t_chunk chk, int m)
 		chk.high = find_range_highest(*b);
 		while ((*b)->data != chk.high)
 		{
-			if (det_flow_high(b, chk.high))
+			if (det_flow_equ(b, chk.high))
 				exec_cmd("rb", a, b, m);
 			else
 				exec_cmd("rrb", a, b, m);

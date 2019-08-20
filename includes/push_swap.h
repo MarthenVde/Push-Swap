@@ -38,6 +38,8 @@ typedef	struct	s_flag
 	char n : 1;
 }				t_flag;
 
+void			arr_del(char **arr);
+int				stack_end(t_stack *head);
 void			free_stacks(t_stack **stk_a, t_stack **stk_b);
 void			print_box(int w, char *str);
 int				set_flags(const char *av, t_flag *f);

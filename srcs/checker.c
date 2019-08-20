@@ -32,8 +32,14 @@ static	void	pass_flags(int *ac, char ***av, t_flag *f)
 
 static	int		set_stack_a(int ac, char **av, t_stack **a)
 {
+	char **stk_arr;
+
 	if (ac == 1)
-		ft_atostack(ft_strsplit(*av, ' '), a);
+	{
+		stk_arr = ft_strsplit(*av, ' ');
+		ft_atostack(stk_arr, a);
+		arr_del(stk_arr);
+	}
 	else if (ac > 1)
 		ft_atostack(av, a);
 	else
@@ -57,18 +63,12 @@ static	int		read_commands(t_stack **a, t_stack **b, t_flag f, int high)
 			ft_putstr("\e[1;1H\e[2J");
 		}
 		if (f.c)
-		{
 			print_box(3, in_stream);
-			if (!(f.v))
-			{
-				usleep(60000);
-				ft_putstr("\e[1;1H\e[2J");
-			}
-		}
+		if (!(f.v) && f.c)
+			usleep(50000);
 		nr_opp++;
+		ft_strdel(&in_stream);
 	}
-	if (f.c && !f.v)
-		print_box(3, in_stream);
 	return (nr_opp);
 }
 

@@ -74,3 +74,14 @@ int	range_upper(t_stack *head, int chunk_size)
 	}
 	return (upper);
 }
+
+int	stack_end(t_stack *head)
+{
+	int end_val;
+
+	end_val = 0;
+	while (head && head->next)
+		head = head->next;
+	end_val = head->data;
+	return (end_val);
+}
